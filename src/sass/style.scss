@@ -8,7 +8,10 @@
     margin: 0 auto;
 } 
 
+@import 'blocks/title';
 @import 'blocks/promo';
 @import 'blocks/header';
 @import 'blocks/buttons';
-@import 'blocks/_advantages'
+@import 'blocks/_advantages';
+@import 'blocks/consultation';
+@import 'blocks/forms';
