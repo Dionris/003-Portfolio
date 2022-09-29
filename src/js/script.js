@@ -2,8 +2,8 @@ $(document).ready(function(){
     $('.carousel__inner').slick({
         speed: 1000,
         // adaptiveHeight: true,
-        prevArrow: '<button type="button" class="slick-prev"><img src="../icons/left.svg"></button>',
-        nextArrow: '<button type="button" class="slick-next"><img src="../icons/right.svg"></button>',
+        prevArrow: '<button type="button" class="slick-prev"><img src="../icons/left.png"></button>',
+        nextArrow: '<button type="button" class="slick-next"><img src="../icons/right.png"></button>',
         responsive: [
             {
                 breakpoint: 992,
@@ -102,13 +102,37 @@ $(document).ready(function(){
                 }
             }
         });  
-    };
+    }
 
     valideForms ('#consultation-form');
     valideForms ('#consultation form');
     valideForms ('#order form');
+
     // Input Mask Phone
 
     $('input[name=phone]').mask("+375 (99) 999-99-99");
 
+    // Validation form in local server
+
+    $('form').submit(function (e) {
+        e.preventDefault();
+
+        if (!$(this).valid()) {
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "mailer/smart.php",
+            data: $(this).serialize()
+        }).done(function() {
+            $(this).find("input").val("");
+
+            $('#consultation, #order').fadeOut();
+            $('.overlay, #thanks').fadeIn('slow');
+
+            $('form').trigger('reset');
+        });
+        return false;
+    });
 });
