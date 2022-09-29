@@ -43,6 +43,8 @@ $(document).ready(function(){
     }); 
     */
 
+    // Catalog
+
     function toggleSlide(item) {
         $(item).each(function(i){
             $(this).on('click',function(e){
@@ -55,5 +57,58 @@ $(document).ready(function(){
 
     toggleSlide('.catalog-item__link');
     toggleSlide('.catalog-item__back');
+
+    // Modal
+
+    $('[data-modal=consultation]').on('click', function() {
+        $('.overlay, #consultation').fadeIn('slow');    
+    });
+
+    $('.modal__close').on('click', function() {
+        $('.overlay, #consultation, #order, #thanks').fadeOut('slow');
+    });
+
+    $('.button_mini').each(function(i) {
+        $(this).on('click', function() {
+            $('#order .modal__descr').text($('.catalog-item__subtitle').eq(i).text());
+            $('.overlay, #order').fadeIn('slow');  
+        });
+    });
+
+    // Validate
+
+    function valideForms(form) {
+        $(form).validate({
+            rules: {
+                name: {
+                    required: true,
+                    minlength: 2
+                },
+                phone: "required",
+                email: {
+                    required: true,
+                    email: true
+                }
+            },
+            messages: {
+                name: {
+                    required: "Пожалуста, введите свое имя",
+                    minlength: jQuery.validator.format("Введите {0} символа!")
+                },
+                phone: "Пожалуста, введите свой номер телефона" ,
+                email: {
+                    required: "Пожалуста, введите свою почту",
+                    email: "Неправильно введен адрес почты"
+                }
+            }
+        });  
+    };
+
+    valideForms ('#consultation-form');
+    valideForms ('#consultation form');
+    valideForms ('#order form');
+    // Input Mask Phone
+
+    $('input[name=phone]').mask("+375 (99) 999-99-99");
 
 });
