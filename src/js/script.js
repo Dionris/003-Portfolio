@@ -2,8 +2,8 @@ $(document).ready(function(){
     $('.carousel__inner').slick({
         speed: 1000,
         // adaptiveHeight: true,
-        prevArrow: '<button type="button" class="slick-prev"><img src="../icons/left.png"></button>',
-        nextArrow: '<button type="button" class="slick-next"><img src="../icons/right.png"></button>',
+        prevArrow: '<button type="button" class="slick-prev"><img src="../icons/left.svg"></button>',
+        nextArrow: '<button type="button" class="slick-next"><img src="../icons/right.svg"></button>',
         responsive: [
             {
                 breakpoint: 992,
@@ -113,7 +113,7 @@ $(document).ready(function(){
     $('input[name=phone]').mask("+375 (99) 999-99-99");
 
     // Validation form in local server
-
+ 
     $('form').submit(function (e) {
         e.preventDefault();
 
@@ -127,12 +127,29 @@ $(document).ready(function(){
             data: $(this).serialize()
         }).done(function() {
             $(this).find("input").val("");
-
             $('#consultation, #order').fadeOut();
             $('.overlay, #thanks').fadeIn('slow');
 
             $('form').trigger('reset');
         });
         return false;
+    }); 
+
+    // Smooth Scroll and pageUp
+
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 1600){
+            $('.pageup').fadeIn();
+        } else {
+            $('.pageup').fadeOut();
+        }
     });
+
+    $("a[href=#up]").click(function(){
+        const _href = $(this).attr("href");
+        $("html, body").animate({scrollTop: $(_href).offset().top+"px"});
+        return false;
+    });
+
+
 });
