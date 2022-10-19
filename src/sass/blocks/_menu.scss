@@ -17,6 +17,13 @@
     span.long {
         width: 36px;
     }
+    &:hover {
+        span{
+            transition: all 0.4s;
+            box-shadow: 0 0 20px $main-color;
+        }
+         
+    }
 }
 
 .menu {
